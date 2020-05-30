@@ -19,15 +19,14 @@ a {
 }
 
 :root {
-  --blue: #007bff;
   --dark-blue: #383b70;
+  --dark-blue2: #272b77;
   --white: #fff;
   --gray: #505565;
   --gray-dark: #343a40;
   --bg-sub: #0a183d;
-  --red: #fc020294;
   --danger: #fc0254;
-  --light: #f8f9fa;
+  --red: #9c093a;
   --dark: #343a40;
   --bg-header: #08192d;
   --text: #6a7080;
@@ -107,10 +106,13 @@ a {
   padding: 23px 20px;
   border-radius: 50px;
   text-transform: uppercase;
-  color: #fff;
+  font-weight: 600;
+  color: var(--white);
   line-height: normal;
   cursor: pointer;
   text-align: center;
+  -webkit-transition: all cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s;
+  transition: all cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s;
 }
 
 .btn-red {
@@ -119,10 +121,18 @@ a {
 
 .btn-red:hover {
   background-color: var(--red);
+  color: var(--white);
+  -webkit-transition: all linear 0.3s;
+  transition: all linear 0.3s;
 }
 
 .btn-darkblue {
   background-color: var(--dark-blue);
+}
+
+.btn-darkblue:hover {
+  color: var(--white);
+  background-color: var(--dark-blue2);
 }
 
 .hero {
@@ -154,10 +164,14 @@ a {
 
 .hero-left p {
   font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--text);
+  font-weight: 600;
+  color: var(--white);
   line-height: 1.8;
   padding-bottom: 5rem;
+}
+
+.hero-left a {
+  margin-right: 1rem;
 }
 
 .intro-wrap {
