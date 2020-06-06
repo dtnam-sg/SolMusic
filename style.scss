@@ -1,3 +1,5 @@
+@import "./sass/mixins";
+@import "./sass/variables";
 *,
 *:before,
 *:after {
@@ -9,27 +11,16 @@ html {
 }
 body {
   font-family: "Montserrat", sans-serif;
-  color: var(--black);
+  color: $black;
+  @include respond(phone) {
+    padding-left: 1rem;
+  }
 }
-a {
+a,
+a:hover {
   text-decoration: none;
 }
-:root {
-  --dark-blue: #383b70;
-  --dark-blue2: #272b77;
-  --white: #fff;
-  --gray: #505565;
-  --gray-dark: #343a40;
-  --bg-sub: #0a183d;
-  --danger: #fc0254;
-  --red: #9c093a;
 
-  --dark: #343a40;
-  --bg-header: #08192d;
-  --text: #6a7080;
-  --text-h5: #0a183d;
-  --bg-sub-list: #1c294a;
-}
 .container {
   max-width: 114rem;
   padding: 0 18.7rem;
@@ -38,9 +29,70 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
+@include respond(phone) {
+  .header {
+    &-right {
+      opacity: 0;
+      visibility: hidden;
+    }
+    &__checkbox {
+      display: none;
+    }
+    &__button {
+      background-color: $white;
+      width: 5rem;
+      height: 5rem;
+      font-size: 3rem;
+      cursor: pointer;
+      text-align: center;
+      z-index: 100;
+      position: fixed;
 
+      left: 30rem;
+      border-radius: 1rem;
+      & i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &__background {
+      width: 5rem;
+      height: 5rem;
+      position: fixed;
+      background-color: $white;
+      border-radius: 1rem;
+      z-index: 98;
+      left: 30rem;
+      transition: transform 0.8s;
+    }
+    &__checkbox:checked ~ &__background {
+      transform: scale(50);
+    }
+    &__checkbox:checked ~ &__list {
+      opacity: 1;
+      width: 100%;
+      text-align: center;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &__list {
+      position: fixed;
+      height: 100vh;
+      top: 0;
+      right: 0;
+      z-index: 99;
+      opacity: 0;
+      width: 0;
+      transition: all 0.8s;
+    }
+  }
+}
 .header {
-  background: var(--bg-header);
+  background: $bg-header;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,12 +101,18 @@ a {
   font-size: 1.6rem;
   &-logo {
     padding: 4.4rem 1.5rem;
+    @include respond(tab-port) {
+      padding: 0;
+    }
   }
   & li a {
-    color: var(--white);
+    color: $white;
     margin: 4.5rem;
+    @include respond(tab-port) {
+      margin: 4.5rem 2.4rem;
+    }
     &:hover {
-      color: var(--danger);
+      color: $danger;
     }
   }
   & ul {
@@ -63,15 +121,15 @@ a {
   &-right {
     display: flex;
     &__help {
-      color: var(--gray);
+      color: $gray;
     }
     & span,
     &__login {
-      color: var(--white);
+      color: $white;
       margin-left: 1rem;
     }
     &__register {
-      color: var(--danger);
+      color: $danger;
     }
   }
 }
@@ -86,54 +144,68 @@ a {
   border-radius: 50px;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--white);
+  color: $white;
   line-height: normal;
   cursor: pointer;
   text-align: center;
-  transition: all cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.3s;
+  transition: all linear 0.2s;
   &-red {
-    background-color: var(--danger);
+    background-color: $danger;
     &:hover {
-      background-color: var(--red);
-      color: var(--white);
-      transition: all linear 0.3s;
+      background-color: $red;
+      color: $white;
+      transition: all linear 0.2s;
     }
   }
   &-darkblue {
-    background-color: var(--dark-blue);
+    background-color: $dark-blue;
     &:hover {
-      color: var(--white);
-      background-color: var(--dark-blue2);
+      color: $white;
+      background-color: $dark-blue2;
     }
   }
 }
 .hero {
-  background-color: var(--bg-sub);
+  background-color: $bg-sub;
   & .container {
     padding-top: 10rem;
     padding-bottom: 10rem;
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
   }
   &-left {
     max-width: 50%;
     & h2 {
       font-weight: 600;
       font-size: 6rem;
-      color: var(--white);
+      color: $white;
       padding-bottom: 2.5rem;
+      @include respond(phone) {
+        font-size: 4rem;
+      }
       & span {
-        color: var(--danger);
+        color: $danger;
       }
     }
     & p {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--white);
+      color: $white;
       line-height: 1.8;
       padding-bottom: 5rem;
     }
     & a {
       margin-right: 1rem;
+      @include respond(tab-port) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  &-right img {
+    @include respond(phone) {
+      width: 100%;
     }
   }
 }
@@ -142,23 +214,35 @@ a {
     display: flex;
     padding-top: 10rem;
     padding-bottom: 10rem;
+    @include respond(phone) {
+      flex-direction: column;
+    }
   }
   &-left {
     & h2 {
       font-size: 6rem;
       font-weight: 600;
+      @include respond(phone) {
+        font-size: 4rem;
+      }
     }
   }
   &-right {
     max-width: 50%;
     margin-left: 1rem;
+    @include respond(phone) {
+      max-width: 100%;
+    }
     & p {
       font-size: 1.5rem;
-      color: var(--text);
+      color: $text;
       line-height: 1.8;
       font-weight: 500;
       margin-bottom: 3.5rem;
       padding-top: 1.5rem;
+      @include respond(phone) {
+        margin-bottom: 2rem;
+      }
     }
   }
 }
@@ -166,9 +250,12 @@ a {
   background-image: url(images/how-to-bg.jpg);
   &__title {
     margin-bottom: 6rem;
-    color: var(--white);
+    color: $white;
     font-size: 6rem;
     font-weight: 600;
+    @include respond(phone) {
+      font-size: 4rem;
+    }
   }
   &-wrap {
     padding-top: 10rem;
@@ -176,9 +263,15 @@ a {
   }
   &__content {
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
   }
   &-item {
     max-width: 33.3%;
+    @include respond(phone) {
+      max-width: 100%;
+    }
     &:not(:first-child) {
       padding-left: 2rem;
     }
@@ -187,7 +280,7 @@ a {
       width: 5.7rem;
       height: 5.7rem;
       border-radius: 50%;
-      background-color: var(--danger);
+      background-color: $danger;
       margin-bottom: 2.5rem;
       & img {
         position: absolute;
@@ -198,11 +291,11 @@ a {
     & h4 {
       font-size: 2.4rem;
       font-weight: 600;
-      color: var(--white) !important;
+      color: $white !important;
       margin-bottom: 2.5rem;
     }
     & p {
-      color: var(--white);
+      color: $white;
       opacity: 0.6;
       font-weight: 400;
       line-height: 1.8;
@@ -218,17 +311,27 @@ a {
   &-first {
     display: flex;
     margin-bottom: 8rem;
+    @include respond(phone) {
+      flex-direction: column;
+    }
     & h2 {
       font-weight: 600;
       font-size: 6rem;
+      @include respond(phone) {
+        font-size: 4rem;
+      }
     }
     & p {
       max-width: 50%;
       padding-top: 0.5rem;
       font-size: 1.5rem;
-      color: var(--text);
+      color: $text;
       line-height: 1.8;
       font-weight: 500;
+      @include respond(phone) {
+        max-width: 100%;
+        line-height: 1.4;
+      }
     }
   }
   &-title {
@@ -237,20 +340,28 @@ a {
   }
   &-second {
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
     &__item {
       width: 25%;
       text-align: center;
       margin-right: 2rem;
+      @include respond(phone) {
+        width: 100%;
+      }
       & img {
         border-radius: 4rem;
         margin-bottom: 1.5rem;
         vertical-align: middle;
+        width: 100%;
+        height: 100%;
       }
       & h5 {
         font-size: 1.8rem;
         line-height: 1;
         font-weight: 600;
-        color: var(--text-h5);
+        color: $text-h5;
       }
     }
   }
@@ -260,26 +371,35 @@ a {
     padding-top: 10rem;
     padding-bottom: 10rem;
   }
-  background: var(--bg-sub);
+  background: $bg-sub;
   &-wrap {
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
   }
   &-left {
     max-width: 50%;
+    @include respond(phone) {
+      max-width: 100%;
+    }
     & h2 {
-      color: var(--white);
+      color: $white;
       font-size: 6rem;
       margin-bottom: 2rem;
       font-weight: 600;
+      @include respond(phone) {
+        font-size: 4rem;
+      }
     }
     & h3 {
-      color: var(--danger);
+      color: $danger;
       margin-bottom: 3rem;
       font-weight: 500;
       font-size: 3rem;
     }
     & p {
-      color: var(--white);
+      color: $white;
       font-weight: 400;
       opacity: 0.6;
       margin-bottom: 4rem;
@@ -288,17 +408,29 @@ a {
     }
   }
   &-right {
+    @include respond(tab-port) {
+      margin-left: 4rem;
+    }
+    @include respond(phone) {
+      margin-left: 0;
+      margin-top: 2rem;
+    }
     &__list {
-      background-color: var(--bg-sub-list);
+      background-color: $bg-sub-list;
       border-radius: 4.2rem;
       padding: 7rem 17.5rem 5rem 15.5rem;
+      @include respond(tab-port) {
+        padding: 9rem 4rem;
+      }
       & li {
         font-size: 1.8rem;
-        color: var(--white);
+        color: $white;
         margin-bottom: 3.5rem;
+        @include respond(tab-port) {
+          margin-bottom: 4.5rem;
+        }
         & img {
           padding-right: 2.8rem;
-          vertical-align: center;
         }
       }
     }
@@ -311,16 +443,26 @@ a {
   }
   &-desc {
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
     & p {
       max-width: calc(50% - 4rem);
       font-weight: 500;
       font-size: 1.5rem;
       line-height: 1.8;
       margin-left: 4rem;
+      @include respond(phone) {
+        max-width: 100%;
+        margin-left: 0;
+      }
     }
   }
   &-title {
     margin-bottom: 6rem;
+    @include respond(phone) {
+      margin-bottom: 2rem;
+    }
     & h2 {
       font-weight: 600;
       font-size: 6rem;
@@ -330,6 +472,10 @@ a {
   &-list {
     display: flex;
     margin-top: 8rem;
+    @include respond(phone) {
+      flex-direction: column;
+      margin-top: 0;
+    }
     &__item {
       display: flex;
       flex-direction: column;
@@ -338,25 +484,45 @@ a {
       align-items: center;
       margin-right: 3rem;
       margin-left: 4rem;
+      @include respond(tab-port) {
+        margin-left: 0;
+      }
+      @include respond(phone) {
+        margin-right: 0;
+        margin-top: 3rem;
+      }
       & img {
         width: 19rem;
         height: 19rem;
         border-radius: 50%;
         margin-bottom: 4rem;
         vertical-align: middle;
+        @include respond(tab-port) {
+          width: 17rem;
+          height: 17rem;
+        }
+        @include respond(phone) {
+          margin-bottom: 0;
+        }
       }
       & h4 {
         font-weight: 600;
         font-size: 2.4rem;
-        color: var(--bg-sub);
+        color: $bg-sub;
         margin-bottom: 0.4rem;
+        @include respond(tab-port) {
+          font-size: 1.6rem;
+        }
       }
       & p {
         font-size: 1.5rem;
-        color: var(--text);
+        color: $text;
         line-height: 1.8;
         font-weight: 500;
         text-align: center;
+        @include respond(tab-port) {
+          font-size: 1.3rem;
+        }
       }
     }
   }
@@ -367,30 +533,39 @@ a {
       font-size: 1.1rem;
       font-weight: 500;
       padding: 1rem 0 2.5rem;
-      color: var(--gray);
+      color: $gray;
+      @include respond(phone) {
+        line-height: 1.4;
+      }
     }
     &__social a {
       display: inline-block;
-      color: var(--text);
+      color: $text;
       font-size: 1.8rem;
       margin-right: 3.5rem;
       &:hover {
-        color: var(--danger);
+        color: $danger;
       }
     }
   }
-  background-color: var(--bg-sub);
+  background-color: $bg-sub;
   & .container {
     padding-top: 10rem;
     padding-bottom: 10rem;
     display: flex;
+    @include respond(phone) {
+      flex-direction: column;
+    }
   }
   &-right {
     display: flex;
     margin-left: 5rem;
+    @include respond(phone) {
+      margin-left: 0;
+    }
     & h2 {
       font-size: 1.6rem;
-      color: var(--white);
+      color: $white;
       text-transform: uppercase;
       margin-bottom: 3rem;
       font-weight: 600;
@@ -398,12 +573,18 @@ a {
     &__products,
     &__playlists {
       margin-left: 10rem;
+      @include respond(phone) {
+        margin-left: 3rem;
+      }
     }
     & ul li {
       margin-bottom: 2rem;
       & a {
-        color: var(--text);
+        color: $text;
         font-size: 1.4rem;
+        &:hover {
+          color: $danger;
+        }
       }
     }
   }
