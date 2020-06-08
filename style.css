@@ -14,12 +14,6 @@ body {
   color: #000;
 }
 
-@media screen and (max-width: 400px) {
-  body {
-    padding-left: 1rem;
-  }
-}
-
 a,
 a:hover {
   text-decoration: none;
@@ -49,7 +43,7 @@ a:hover {
     font-size: 3rem;
     cursor: pointer;
     text-align: center;
-    z-index: 100;
+    z-index: 150;
     position: fixed;
     left: 30rem;
     border-radius: 1rem;
@@ -65,7 +59,7 @@ a:hover {
     width: 5rem;
     height: 5rem;
     position: fixed;
-    background-color: #fff;
+    background-color: #383b70;
     border-radius: 1rem;
     z-index: 98;
     left: 30rem;
@@ -80,23 +74,26 @@ a:hover {
   }
   .header__checkbox:checked ~ .header__list {
     opacity: 1;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    visibility: visible;
+    z-index: 100;
   }
   .header__list {
     position: fixed;
-    height: 100vh;
-    top: 0;
-    right: 0;
-    z-index: 99;
     opacity: 0;
-    width: 0;
-    -webkit-transition: all 0.8s;
-    transition: all 0.8s;
+    visibility: hidden;
+    -webkit-transition: 0.25s linear 0.1s;
+    transition: 0.25s linear 0.1s;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    height: 100vh;
+    top: 10%;
+    left: 38%;
+  }
+  .header__item {
+    padding-bottom: 2rem;
+    font-size: 2rem;
   }
 }
 
@@ -116,6 +113,10 @@ a:hover {
   font-size: 1.6rem;
 }
 
+.header__checkbox {
+  display: none;
+}
+
 .header-logo {
   padding: 4.4rem 1.5rem;
 }
@@ -126,18 +127,18 @@ a:hover {
   }
 }
 
-.header li a {
+.header__list a {
   color: #fff;
   margin: 4.5rem;
 }
 
 @media screen and (max-width: 900px) {
-  .header li a {
+  .header__list a {
     margin: 4.5rem 2.4rem;
   }
 }
 
-.header li a:hover {
+.header__list a:hover {
   color: #fc0254;
 }
 
